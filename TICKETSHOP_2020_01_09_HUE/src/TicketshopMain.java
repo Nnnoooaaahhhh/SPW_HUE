@@ -6,16 +6,6 @@ public class TicketshopMain {
 	static int whichTicket;
 	static int id = 1;	
 	static boolean first = true;
-	static int countConcertTicketsMittelklasse = 1000;
-	static int countConcertTicketsVorDerBuehne = 500;
-	static int countConcertTicketsNebenDerBuehne = 500;
-	static int countConcertTicketsGanzWeitHinten = 1500;
-	static int countFootballTicketsVIP = 1000;
-	static int countFootballTicketsSteh = 20000;
-	static int countFootballTicketsSitz = 10000;
-	static int countTheatreTicketsLoge = 50;
-	static int countTheatreTicketsVorne = 150;
-	static int countTheatreTicketsHinten = 300;
 	static boolean customerTest = false;
 	static boolean ticketCheck = false;
 	
