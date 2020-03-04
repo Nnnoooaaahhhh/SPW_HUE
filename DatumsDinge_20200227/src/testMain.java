@@ -65,7 +65,7 @@ public class testMain {
 			}
 			now = now.minusDays(1);
 		}
-		System.out.println("Seit dem 1.1." + year + " gab es "+ days +" "+ whatDay + "e");
+		System.out.println("Seit dem 1.1." + year + " gab es "+ days +" "+ whatDay + "/e");
 		System.out.println("Das Datum des letzten gefunden Montags ist (YYYY/MM/DD): " + DateTimeFormatter.ofPattern("yyyy/MM/dd").format(lastMonday)+",");
 		System.out.println("oder (MM/DD/YY:) " + DateTimeFormatter.ofPattern("MM/dd/yy").format(lastMonday));
 	}	
