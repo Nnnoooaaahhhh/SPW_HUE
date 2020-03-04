@@ -3,15 +3,15 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 public class testMain {
+	
+	static ArrayList<LocalDate> allDates = new ArrayList<LocalDate>();
 
 	public static void main(String[] args) {
 		dates();
 		bday();
 	}
 	
-	@SuppressWarnings("unlikely-arg-type")
 	static void dates() {
-		DayOfWeek LastWeekDay;
 		DayOfWeek weekDay;
 		int days = 0;
 		String whatDay;
@@ -19,29 +19,28 @@ public class testMain {
 		@SuppressWarnings("resource")
 		Scanner a = new Scanner(System.in);
 		int year;
-		LocalDate lastMonday = null;
-		LocalDate now = LocalDate.now();
+		LocalDate lastDay = null;
 		System.out.println("Nach welchem Wochentag wollen sie suchen?");
 		whatDay = a.next();
-		if(whatDay.equals("Montag")) {
+		if(whatDay.equalsIgnoreCase("Montag")) {
 			whatDayX = DayOfWeek.MONDAY;
 		}
-		if(whatDay.equals("Dienstag")) {
+		if(whatDay.equalsIgnoreCase("Dienstag")) {
 			whatDayX = DayOfWeek.TUESDAY;
 		}
-		if(whatDay.equals("Mittwoch")) {
+		if(whatDay.equalsIgnoreCase("Mittwoch")) {
 			whatDayX = DayOfWeek.WEDNESDAY;
 		}
-		if(whatDay.equals("Donnerstag")) {
+		if(whatDay.equalsIgnoreCase("Donnerstag")) {
 			whatDayX = DayOfWeek.THURSDAY;
 		}
-		if(whatDay.equals("Freitag")) {
+		if(whatDay.equalsIgnoreCase("Freitag")) {
 			whatDayX = DayOfWeek.FRIDAY;
 		}
-		if(whatDay.equals("Samstag")) {
+		if(whatDay.equalsIgnoreCase("Samstag")) {
 			whatDayX = DayOfWeek.SATURDAY;
 		}
-		if(whatDay.equals("Sonntag")) {
+		if(whatDay.equalsIgnoreCase("Sonntag")) {
 			whatDayX = DayOfWeek.SUNDAY;
 		}
 		System.out.println("Anfangsjahrzahl eingeben:");
@@ -51,23 +50,17 @@ public class testMain {
 			weekDay = test.getDayOfWeek();
 			if(weekDay == whatDayX){
 				days++;
+				allDates.add(test);
 			}
 			test = test.plusDays(1);
 			if(test.isEqual(LocalDate.now())) {
 				break;
 			}
 		}
-		for(int i = 0; i < i + 1; i++) {
-			LastWeekDay = now.getDayOfWeek();
-			if(LastWeekDay == DayOfWeek.MONDAY){
-				lastMonday = now;
-				break;
-			}
-			now = now.minusDays(1);
-		}
+		lastDay = allDates.get(allDates.size()-1);
 		System.out.println("Seit dem 1.1." + year + " gab es "+ days +" "+ whatDay + "/e");
-		System.out.println("Das Datum des letzten gefunden Montags ist (YYYY/MM/DD): " + DateTimeFormatter.ofPattern("yyyy/MM/dd").format(lastMonday)+",");
-		System.out.println("oder (MM/DD/YY:) " + DateTimeFormatter.ofPattern("MM/dd/yy").format(lastMonday));
+		System.out.println("Das Datum des letzten gefunden Montags ist (YYYY/MM/DD): " + DateTimeFormatter.ofPattern("yyyy/MM/dd").format(lastDay)+",");
+		System.out.println("oder (MM/DD/YY:) " + DateTimeFormatter.ofPattern("MM/dd/yy").format(lastDay));
 	}	
 	
 	static void bday() {
@@ -85,7 +78,6 @@ public class testMain {
 		day = a.nextInt();
 		LocalDate test = LocalDate.of(LocalDate.now().getYear()+1, month, day);
 		LocalDate testX = LocalDate.of(LocalDate.now().getYear(), month, day);
-		
 		Period daysTo = Period.between(LocalDate.now(), test);		
 		System.out.println("Es sind noch " + daysTo.getMonths() + " Monate und "+ daysTo.getDays()+" Tage zu ihrem Geburtstag!");
 		days = (int) ChronoUnit.DAYS.between(LocalDate.now(), testX);
