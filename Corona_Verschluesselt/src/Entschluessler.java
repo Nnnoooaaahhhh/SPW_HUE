@@ -5,14 +5,20 @@ import java.util.*;
 public class Entschluessler {
 	
 	public static void main(String args[]) {
+		timeStart = System.currentTimeMillis();
 		lettersToInt();
-		minusCode();
+		findOutCode();
 		backToLetters();
+		containsAAA();
+		System.out.println("Benötigte Zeit: " + (System.currentTimeMillis()-timeStart)/1000 + " Sekunden, bzw. " + (System.currentTimeMillis()-timeStart) + " Millisekunden");
 	}
 	
 	static int intArray[];
 	static int codeArray[];
+	static int testCodeArray[];
 	static String finalText[];
+	static long timeStart;
+	static int testCode;
 	
 	static void lettersToInt() {
 		File Output;
@@ -60,13 +66,36 @@ public class Entschluessler {
 		}
 	}
 	
-	static void minusCode() {
+	static void findOutCode() {
+		testCode = 0;
+		String testCodeString = "";
 		codeArray = new int[intArray.length];
 		int y = 0;
-		Scanner userInput = new Scanner(System.in);
-		String Codex;
-		System.out.println("Code: ");
-		Codex = userInput.next();
+		for(int j = 0; j < j + 1; j++) {
+			testCodeString = String.valueOf(testCode);
+			char [] codeArrayChar = testCodeString.toCharArray();
+			
+			if(testCodeString.length() > intArray.length) {
+				break;
+			}
+			for(int i = 0; i < intArray.length; i++) {
+				codeArray[i] = intArray[i] - Integer.valueOf(codeArrayChar[y] - 48);
+				y++;
+				if(y == codeArrayChar.length) {
+					y = 0;
+				}
+			}
+			minusCode(testCodeString);
+			backToLetters();
+			containsAAA();
+			testCode++;
+		}	
+	}
+	
+	
+	static void minusCode(String Codex) {
+		codeArray = new int[intArray.length];
+		int y = 0;
 		char [] codeArrayChar = Codex.toCharArray();
 		for(int i = 0; i < intArray.length; i++) {
 			codeArray[i] = intArray[i] - Integer.valueOf(codeArrayChar[y] - 48);
@@ -143,7 +172,6 @@ public class Entschluessler {
 		for(int i = 0; i < finalText.length; i++) {
 			finalOutput = finalOutput + finalText[i];
 		}
-		System.out.println("FinalOutput: " + finalOutput);
 		
 		File finalOutputFile;
 		Path file = Paths.get("FinalOutput.txt");
@@ -164,6 +192,26 @@ public class Entschluessler {
 				writer.close();
 			}
 		} catch (Exception e) {
+		}
+	}
+	
+	static void containsAAA() {
+		boolean AAAinlcuded = false;
+		for(int i = 0; i < finalText.length - 2; i++) {
+			if((finalText[i] == finalText[i+1])&&(finalText[i+1]==finalText[i+2])&&finalText[i] == "a") {
+				AAAinlcuded = true;	
+			}
+		}
+
+
+		if(AAAinlcuded) {
+			System.out.println("AAA ist inkludiert, der Text mit dem dazugehörigen Code lautet: ");
+			System.out.print("Text: ");
+			for(int i = 0; i < finalText.length; i++) {
+				System.out.print(finalText[i]);
+			}
+			System.out.println("   Code: " + testCode);
+			System.out.println();
 		}
 	}
 

@@ -8,9 +8,12 @@ public class Verschluessler {
 	static int [] intArray;
 	static int [] codeArray;
 	static String[] finalText;
+	static char[] inputArray;
+
 	
 	public static void main (String args[]) {
 		inputToInt();
+		containsAAA();
 		addCode();
 		backToLetters();
 	}
@@ -25,7 +28,7 @@ public class Verschluessler {
 		}
 		userInput = userInput.replaceAll("\\s","");
 		userInput = userInput.toLowerCase();
-		char [] inputArray = userInput.toCharArray();
+		inputArray = userInput.toCharArray();
 		intArray = new int[inputArray.length];
 		for(int i = 0; i < inputArray.length; i++) {
 			if(inputArray[i]=='a') {
@@ -66,7 +69,7 @@ public class Verschluessler {
 		int y = 0;
 		Scanner userInput = new Scanner(System.in);
 		String Codex;
-		System.out.println("Code: ");
+		System.out.print("Code: ");
 		Codex = userInput.next();
 		char [] codeArrayChar = Codex.toCharArray();
 		for(int i = 0; i < intArray.length; i++) {
@@ -140,6 +143,23 @@ public class Verschluessler {
 				writer.close();
 			}
 		} catch (Exception e) {
+		}
+	}
+	
+	static void containsAAA() {
+		int aCounter = 0;
+		boolean AAAincluded = false;
+		for(int i = 0; i < inputArray.length - 1; i++) {
+			if((inputArray[i] == inputArray[i+1])&&inputArray[i]=='a') {
+				aCounter++;
+			}
+			if(aCounter == 2) {
+				AAAincluded = true;
+			}
+		}
+
+		if(AAAincluded) {
+			System.out.println("AAA ist inkludiert");
 		}
 	}
 }
